@@ -133,6 +133,3 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-
-BOARD_SEPOLICY_DIRS += \
-    device/sony/fusion3-common/sepolicy
