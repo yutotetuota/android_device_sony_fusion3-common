@@ -1,0 +1,7 @@
+type rfkill_device, dev_type;
+
+# IR blaster
+type ir_remote_serial_device, dev_type;
+
+# Synaptics RMI
+type rmi_device, dev_type;
