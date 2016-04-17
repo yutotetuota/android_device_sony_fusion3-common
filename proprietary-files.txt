@@ -9,7 +9,6 @@ bin/netmgrd
 bin/qmuxd
 bin/qseecomd
 bin/ta2bin
-bin/taimport
 bin/ta_qmi_client
 bin/usbhub
 bin/usbhub_init
@@ -128,7 +127,7 @@ lib/libqmi.so
 lib/libQSEEComAPI.so
 lib/libril-qc-qmi-1.so
 lib/libsys-utils.so
-lib/libta.so
+-lib/libta.so
 vendor/camera/KMO08BN0_IMX111.dat
 vendor/camera/LGI02BN0.dat
 vendor/camera/LGI08BN2_DW9714.dat
@@ -187,7 +186,5 @@ vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libtime_genoff.so
-vendor/lib/libwvdrm_L1.so
 vendor/lib/libwvm.so
 vendor/lib/libWVphoneAPI.so
-vendor/lib/libWVStreamControlAPI_L1.so
