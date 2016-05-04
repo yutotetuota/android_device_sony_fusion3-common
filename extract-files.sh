@@ -9,8 +9,4 @@ export DEVICE=$(basename $FP)
 export BOARDCONFIGVENDOR=false
 export BOARD_VENDOR_PLATFORM=fusion3
 
-../common/extract-files.sh $@
-
-../common/setup-makefiles.sh
-
-./setup-makefiles.sh
+../fusion3-common/setup-makefiles.sh

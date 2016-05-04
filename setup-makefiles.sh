@@ -4,8 +4,6 @@ VENDOR=sony
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 
-if [ $BOARDCONFIGVENDOR != "true" ]; then
-
 (cat << EOF) > ../../../$OUTDIR/$DEVICE-vendor.mk
 # Copyright (C) 2016 The CyanogenMod Project
 #
@@ -29,6 +27,9 @@ PRODUCT_PACKAGES += \\
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
 
+(cat << EOF) > ../../../$OUTDIR/$DEVICE-vendor-blobs.mk
+EOF
+
 (cat << EOF) > ../../../$OUTDIR/Android.mk
 # Copyright (C) 2016 The CyanogenMod Project
 #
@@ -49,7 +50,6 @@ EOF
 LOCAL_PATH := \$(call my-dir)
 
 ifeq (\$(BOARD_VENDOR),sony)
-ifeq (\$(BOARD_VENDOR_PLATFORM),$BOARD_VENDOR_PLATFORM)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libta
@@ -62,6 +62,4 @@ LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include \$(BUILD_PREBUILT)
 
 endif
-endif
 EOF
-fi
