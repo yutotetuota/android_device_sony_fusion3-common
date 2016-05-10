@@ -71,10 +71,20 @@ TARGET_NO_RPC := true
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-TARGET_DISPLAY_USE_RETIRE_FENCE := true
+#TARGET_DISPLAY_USE_RETIRE_FENCE := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+#OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 HAVE_ADRENO_SOURCE := false
+
+# QCOM/CAF hardware
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_QCOM_AUDIO_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf
+ 
+# QCOM enhanced A/V
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Healthd
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -127,3 +137,26 @@ include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
     device/sony/fusion3-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
+    property_contexts \
+    device.te \
+    file.te \
+    illumination.te \
+    init.te \
+    init_shell.te \
+    mac_update.te \
+    mdm_helper.te \
+    mediaserver.te \
+    mpdecision.te \
+    property.te \
+    radio.te \
+    recovery.te \
+    system_server.te \
+    tad.te \
+    ta_qmi_client.te \
+    thermanager.te \
+    untrusted_app.te \
+    updatemiscta.te \
+    wpa.te
