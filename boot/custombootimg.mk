@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 HIJACK_PATH := $(PRODUCT_OUT)/system/bin/hijack
 
 INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
-$(INSTALLED_BOOTIMAGE_TARGET): $(recovery_uncompressed_ramdisk) $(INSTALLED_RAMDISK_TARGET) $(PRODUCT_OUT)/utilities/busybox $(MKBOOTIMG) $(MINIGZIP) $(INTERNAL_BOOTIMAGE_FILES)
+$(INSTALLED_BOOTIMAGE_TARGET): $(recovery_uncompressed_ramdisk) $(recovery_ramdisk) $(INSTALLED_RAMDISK_TARGET) $(PRODUCT_OUT)/utilities/busybox $(MKBOOTIMG) $(MINIGZIP) $(INTERNAL_BOOTIMAGE_FILES)
 	$(call pretty,"Boot image: $@")
 	$(hide) mkdir -p $(HIJACK_PATH)
 	$(hide) $(MKBOOTFS) $(TARGET_ROOT_OUT) > $(HIJACK_PATH)/ramdisk.cpio
