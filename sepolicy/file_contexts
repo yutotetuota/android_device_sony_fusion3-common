@@ -3,15 +3,10 @@
 
 # Sockets
 /dev/socket/illumination            u:object_r:illumination_socket:s0
-/dev/socket/mpdecision(/.*)?        u:object_r:mpctl_socket:s0
-/dev/socket/mpctl                   u:object_r:mpctl_socket:s0
 /dev/socket/tad                     u:object_r:tad_socket:s0
 
 # Camera
 /dev/gemini.*                       u:object_r:camera_device:s0
-
-# Mpdecision
-/data/system/default_values         u:object_r:mpctl_data_file:s0
 
 # Wifi
 /data/etc/wlan_macaddr[0-3]         u:object_r:wifi_data_file:s0
