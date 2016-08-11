@@ -1,6 +1,3 @@
-on init
-    export LD_SHIM_LIBS /system/lib/hw/camera.vendor.qcom.so|libshim_camera.so:/system/lib/libcald_pal.so|libshim_cald.so
-
 on boot
     # Invensense sensor HAL interfaces
     chown system input /sys/bus/iio/devices/iio:device0/accl_enable
@@ -57,6 +54,11 @@ on boot
     chown system input /sys/bus/iio/devices/iio:device1/scan_elements/in_magn_z_en
     chown system input /sys/bus/iio/devices/iio:device1/scan_elements/in_timestamp_en
 
+on fs
+    # SONY: Start the TrimArea Daemon. It must be started before fota-ua
+    start tad_static
+    exec /sbin/wait4tad_static
+
 on post-fs
     #led RGB
     chown system system /sys/class/leds/lm3533-blue/als_enable
@@ -109,14 +111,31 @@ on post-fs-data
     chown system system /sys/devices/i2c-0/0-0036/als_enable
     chown system system /sys/devices/i2c-0/0-0036/als_result
 
+    # SONY: Start early TA-users
+    mkdir /data/etc 0755 root shell
+    exec /system/bin/taimport.orig
+
+    # SONY: Import MiscTA to System properties
+    exec /system/bin/taimport.orig property
+
+    restorecon /data/etc/bluetooth_bdaddr
+    restorecon /data/etc/wlan_macaddr0
+    restorecon /data/etc/wlan_macaddr1
+    restorecon /data/etc/wlan_macaddr2
+    restorecon /data/etc/wlan_macaddr3
+
 # SONY: TrimArea Daemon
-service tad_static /system/bin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
-    class core
+# Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
+service tad_static /sbin/tad_static /dev/block/mmcblk0 1,16
     user root
     group root
     socket tad stream 0660 system system
 
-# SONY: Trim Area QMI Client
+# SONY: Trim Area QMI client
+# Should have the same class as qmuxd, to be sure that it will be restarted in same way
+# as qmuxd if phone is encrypted. This is a workaround, because sometimes
+# QMI_SYS_EVENT_MODEM_OUT_OF_SERVICE_IND is not sending if qmuxd is terminated during decryption,
+# so, ta_qmi_client was not notified that connection to the TA Service on MDM is lost.
 service ta_qmi_client /system/bin/ta_qmi_client
     class main
     user root
@@ -127,8 +146,6 @@ service updatemiscta /system/bin/updatemiscta
     user root
     oneshot
 
-# Wi-Fi and BT MAC addresses
-service macaddrsetup /system/bin/macaddrsetup /data/misc/bluetooth/bdaddr
-     class late_start
-     user root
-     oneshot
+on early-boot
+    # Start the offline charging (This blocks booting further in some cases)
+    exec /system/bin/chargemon.stock

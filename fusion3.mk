@@ -257,6 +257,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      $(COMMON_PATH)/boot/logos/$(TARGET_SCREEN_WIDTH)x$(TARGET_SCREEN_HEIGHT).rle:root/logo.rle
 
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/lib/libboringssl-compat.so:system/lib/libboringssl-compat.so \
+    $(COMMON_PATH)/rootdir/system/lib/libsony.so:system/lib/libsony.so
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
