@@ -14,6 +14,6 @@ rm -rf $BASE
 mkdir -p $BASE/proprietary/lib
 
 wget -q -O $BASE/proprietary/lib/liboemcrypto.so https://github.com/TheMuppets/proprietary_vendor_sony/raw/cm-13.0/fusion3-common/proprietary/lib/liboemcrypto.so
-ln -s ../../../dogo/proprietary/lib/libta.so $BASE/proprietary/lib/libta.so
+ln -s ../../../gaga/proprietary/lib/libta.so $BASE/proprietary/lib/libta.so
 
 ../fusion3-common/setup-makefiles.sh
